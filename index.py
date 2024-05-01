@@ -1,32 +1,10 @@
 import streamlit as st
 import pandas as pd
-from os import environ
-from dotenv import load_dotenv
-from os import environ
-from mysql.connector import connect
 import locale
 import plotly.express as px
 
-load_dotenv()
-
-conn = connect(
-    host=environ.get("DB_HOST"),
-    user=environ.get("DB_USER"),
-    password=environ.get("DB_PASSWORD"),
-    database=environ.get("DATABASE")
-)
-
-#Obtem os resultados das ultimas 30 coletas de informações
-query_inicial = """
-
-SELECT * 
-FROM db.openfolios 
-WHERE snap_date BETWEEN (SELECT max(snap_date) FROM openfolios) - INTERVAL 30 DAY AND (SELECT max(snap_date) FROM openfolios);
-
-"""
 #df inicial
-df_complete = pd.read_sql(query_inicial, conn)
-
+df_complete = pd.read_csv('data.csv')
 
 cols_to_date = ['arrival_date', 'departure_date', 'snap_date', 'reservation_date']
 date_default = "%d/%m/%Y"
