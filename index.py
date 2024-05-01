@@ -16,9 +16,10 @@ for col in cols_to_date:
 df = df_complete[df_complete['snap_date'] == df_complete['snap_date'].max()]
 
 #Funções de formatação
-locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
-def to_money(value):
-        return locale.currency(value, grouping=True)
+def to_money(value, currency_symbol='R$'):
+    formatted_value = '{:,.2f}'.format(value)
+    return f'{currency_symbol}{formatted_value}'
+
 
 def plot_format(valor):
     numero_arredondado = round(valor)
