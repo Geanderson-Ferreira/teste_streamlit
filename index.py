@@ -27,11 +27,9 @@ def plot_format(valor):
     return numero_formatado
 
 def table_format(numero):
-    # Defina a localização para português do Brasil
-    locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
-    # Formate o número de acordo com a localização
-    numero_formatado = locale.format_string("%.2f", numero, grouping=True)
-    return numero_formatado
+    numero_str = '{:,.2f}'.format(numero)
+    return numero_str
+
 
 ############### SIDEBAR
 
