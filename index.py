@@ -60,14 +60,14 @@ df_to_show = df_filtered[['reservation_conf', 'hotel_id', 'total_balance', 'gues
 for col in ['arrival_date', 'departure_date', 'reservation_date']:
     df_to_show[col] = pd.to_datetime(df_to_show[col]).dt.strftime(date_default)
 
-<<<<<<< HEAD
 
 df_to_show['reservation_conf'] = df_to_show['reservation_conf'].apply(lambda x: str(x).replace(',', ''))
 
-=======
+
 df_to_show['reservation_conf'] = df_to_show['reservation_conf'].apply(lambda x: str(x).replace(',', ''))
->>>>>>> d553861fc0849e84e280e5e1a8df49a84f30605c
+df_to_show = df_to_show.sort_values(by=['total_balance'],ascending=False)
 df_to_show['total_balance'] = df_to_show['total_balance'].apply(table_format)
+
 st.dataframe(df_to_show, hide_index=True)
 
 ################## ROTULO ABAIXO
@@ -116,5 +116,6 @@ st.plotly_chart(fig_date, use_container_width=True)
 
 ################## DATAFRAME AGRUPADO
 st.write("Total Hoteis")
+total_por_hotel = total_por_hotel.sort_values(by=['total_balance'], ascending=False)
 total_por_hotel['total_balance'] = total_por_hotel['total_balance'].apply(table_format)
 st.dataframe(total_por_hotel, use_container_width=True, hide_index=True)
