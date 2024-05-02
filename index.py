@@ -60,18 +60,13 @@ df_to_show = df_filtered[['reservation_conf', 'hotel_id', 'total_balance', 'gues
 for col in ['arrival_date', 'departure_date', 'reservation_date']:
     df_to_show[col] = pd.to_datetime(df_to_show[col]).dt.strftime(date_default)
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 31e2bf391c52a27167f4ad0b2750eea11130abd2
 df_to_show['reservation_conf'] = df_to_show['reservation_conf'].apply(lambda x: str(x).replace(',', ''))
 
 
 df_to_show['reservation_conf'] = df_to_show['reservation_conf'].apply(lambda x: str(x).replace(',', ''))
-<<<<<<< HEAD
+
 df_to_show = df_to_show.sort_values(by=['total_balance'],ascending=False)
-=======
->>>>>>> 31e2bf391c52a27167f4ad0b2750eea11130abd2
+
 df_to_show['total_balance'] = df_to_show['total_balance'].apply(table_format)
 
 st.dataframe(df_to_show, hide_index=True)
