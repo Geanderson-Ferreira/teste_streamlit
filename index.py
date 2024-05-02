@@ -33,7 +33,7 @@ def table_format(numero):
 
 ############### SIDEBAR
 
-st.set_page_config(layout="wide")
+st.set_page_config(layout="wide",initial_sidebar_state="collapsed")
 st.sidebar.title("Filtros - Opens Folio")
 hotel = st.sidebar.selectbox("Hotel", ["Atrio"] + sorted(df['hotel_name'].unique()))
 checkout = st.sidebar.date_input("Checkout até",format="DD/MM/YYYY")
@@ -96,17 +96,17 @@ st.title("Evolução últimos 30 dias")
 if hotel != 'Atrio':
     df_evolution = df_complete.groupby(["hotel_name", "snap_date"])['total_balance'].sum().reset_index().sort_values(by=['snap_date'])
     fig = px.line(df_evolution[df_evolution['hotel_name'] == hotel], x="snap_date", y="total_balance", text=df_evolution[df_evolution['hotel_name'] == hotel]['total_balance'].apply(plot_format))
-    st.plotly_chart(fig)
+    st.plotly_chart(fig, use_container_width=True)
 
 else:
     df_evolution = df_complete.groupby("snap_date")['total_balance'].sum().reset_index().sort_values(by=['snap_date'])
     fig = px.line(df_evolution, x="snap_date", y="total_balance", text=df_evolution['total_balance'].apply(plot_format))
-    st.plotly_chart(fig)
+    st.plotly_chart(fig, use_container_width=True)
 
 ################## AGRUPA
-total_por_hotel = df.groupby("hotel_name")["total_balance"].sum().reset_index().sort_values(by=['total_balance'],ascending=False)
+total_por_hotel = df.groupby("hotel_name")["total_balance"].sum().reset_index().sort_values(by=['total_balance'],ascending=True)
 ################## GRAFICO AGRUPADO 10 MAIS
-fig_date = px.bar(total_por_hotel.head(10), x="total_balance", y="hotel_name" ,title="10 maiores",text=total_por_hotel.head(10)['total_balance'].apply(plot_format))
+fig_date = px.bar(total_por_hotel.tail(10), x="total_balance", y="hotel_name" ,title="10 maiores",text=total_por_hotel.tail(10)['total_balance'].apply(plot_format))
 fig_date.update_yaxes(visible=True)
 st.plotly_chart(fig_date, use_container_width=True)
 
@@ -114,4 +114,3 @@ st.plotly_chart(fig_date, use_container_width=True)
 st.write("Total Hoteis")
 total_por_hotel['total_balance'] = total_por_hotel['total_balance'].apply(table_format)
 st.dataframe(total_por_hotel, use_container_width=True, hide_index=True)
-
