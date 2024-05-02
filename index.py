@@ -46,7 +46,7 @@ df_filtered = df
 if hotel != "Atrio":
     df_filtered = df[df['hotel_name'] == hotel]
 
-df_filtered = df_filtered[df_filtered['departure_date'] < pd.to_datetime(checkout)]
+df_filtered = df_filtered[df_filtered['departure_date'] <= pd.to_datetime(checkout)]
 
 if estornos:
     df_filtered = df_filtered[df['total_balance'] > 0]
@@ -69,7 +69,7 @@ df_to_show = df_to_show.sort_values(by=['total_balance'],ascending=False)
 
 df_to_show['total_balance'] = df_to_show['total_balance'].apply(table_format)
 
-st.dataframe(df_to_show, hide_index=True)
+st.dataframe(df_to_show, hide_index=True, use_container_width=True)
 
 ################## ROTULO ABAIXO
 st.warning(f"Total filtrado: {to_money(df_filtered['total_balance'].sum())}")
