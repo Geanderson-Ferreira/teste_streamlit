@@ -62,9 +62,8 @@ for col in ['arrival_date', 'departure_date', 'reservation_date']:
 
 df_to_show['reservation_conf'] = df_to_show['reservation_conf'].apply(lambda x: str(x).replace(',', ''))
 
-=======
+
 df_to_show['reservation_conf'] = df_to_show['reservation_conf'].apply(lambda x: str(x).replace(',', ''))
->>>>>>> d553861fc0849e84e280e5e1a8df49a84f30605c
 df_to_show['total_balance'] = df_to_show['total_balance'].apply(table_format)
 st.dataframe(df_to_show, hide_index=True)
 
